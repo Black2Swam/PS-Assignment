@@ -1,4 +1,4 @@
-CREATE PROCEDURE putting_it_all_together(in_department_id INT) djkd
+CREATE PROCEDURE putting_it_all_together(in_department_id INT)
     DETERMINISTIC MODIFIES SQL DATA
 BEGIN
     DECLARE l_employee_id INT;
