@@ -1,5 +1,3 @@
-drop procedure if exists discounted_price
-
 CREATE PROCEDURE discounted_price
     (normal_price NUMERIC(8,2),
      OUT discount_price NUMERIC(8,2))
