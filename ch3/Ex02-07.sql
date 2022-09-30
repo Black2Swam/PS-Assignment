@@ -1,13 +1,10 @@
-DROP PROCEDURE IF EXISTS cursor_example2
-//
-
-CREATE PROCEDURE cursor_example2(in_department_id INT)
+CREATE PROCEDURE putting_it_all_together(in_department_id INT)
+    DETERMINISTIC MODIFIES SQL DATA
 BEGIN
     DECLARE l_employee_id INT;
     DECLARE l_salary      NUMERIC(8,2);
     DECLARE l_department_id INT;
     DECLARE l_new_salary  NUMERIC(8,2);
-
     DECLARE done          INT DEFAULT 0;
 
     DECLARE cur1 CURSOR FOR
@@ -37,19 +34,14 @@ BEGIN
          UPDATE employees
             SET salary=l_new_salary
           WHERE employee_id=l_employee_id;
-
          /* Keep track of changed salaries*/
          INSERT INTO emp_raises (employee_id,department_id,new_salary)
           VALUES (l_employee_id,l_department_id,l_new_salary);
-
       END IF;
 
     END LOOP emp_loop;
     CLOSE cur1;
-
     /* Print out the changed salaries*/
     SELECT employee_id,department_id,new_salary from emp_raises;
-
     COMMIT;
-
 END;

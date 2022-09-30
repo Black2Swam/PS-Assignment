@@ -1,10 +1,8 @@
-CREATE FUNCTION f_discount_price
-     (normal_price NUMERIC(8,2))
-   RETURNS NUMERIC(8,2)
+CREATE PROCEDURE discounted_price
+    (normal_price NUMERIC(8,2),
+     OUT discount_price NUMERIC(8,2))
+    NO SQL
 BEGIN
-
-    DECLARE discount_price NUMERIC(8,2);
-
     IF (normal_price>500) THEN
        SET discount_price=normal_price*.8;
 
@@ -15,7 +13,5 @@ BEGIN
        SET discount_price=normal_price;
 
     END IF;
-
-    RETURN(discount_price);
 
 END;
